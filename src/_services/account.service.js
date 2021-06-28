@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { router } from '@/_helpers';
 
-const baseUrl = `${process.env.VUE_APP_API_URL}/accounts`;
+const baseUrl = `${process.env.VUE_APP_API_URL}/auth`;
 const accountSubject = new BehaviorSubject(null);
 
 export const accountService = {
@@ -33,7 +33,7 @@ async function login() {
 async function apiAuthenticate(accessToken) {
     // authenticate with the api using a facebook access token,
     // on success the api returns an account object with a JWT auth token
-    const response = await axios.post(`${baseUrl}/authenticate`, { accessToken });
+    const response = await axios.post(`${baseUrl}/convert-token`, { accessToken });
     const account = response.data;
     accountSubject.next(account);
     startAuthenticateTimer();
